@@ -26,7 +26,6 @@ namespace PromotionEngine
             PromotionWasApplied = promotionWasApplied;
             AdjustmentOrderItem = adjustment;
             AppliedToSKUs = appliedToSkus.ToList();
-
         }
     }
 }

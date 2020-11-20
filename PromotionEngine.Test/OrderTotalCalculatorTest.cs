@@ -79,7 +79,8 @@ namespace PromotionEngine.Test
 
             public static IReadOnlyList<IPromotion> ActivePromotions { get; } = new List<IPromotion>
             {
-
+                new SingleSKUFixedPricePromotionTestBuilder().WithSKUId(Products.A.ID).WithCount(3).WithFixedPrice(130).Build(),
+                new SingleSKUFixedPricePromotionTestBuilder().WithSKUId(Products.B.ID).WithCount(2).WithFixedPrice(45).Build()
             };
         }
     }
