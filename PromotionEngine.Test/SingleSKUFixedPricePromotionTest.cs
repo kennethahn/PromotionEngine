@@ -57,6 +57,24 @@ namespace PromotionEngine.Test
         }
 
 
+        [TestMethod]
+        public void Test_ApplyPromotion_WHEN_ItemMatchesAndTriggers2Promotions_THEN_ItReturnsAdjustmentOf40()
+        {
+            var orderItems = new IOrderItem[]
+            {
+                GetSKUOrderItem(PromotionEngineTestContext.Products.A, 5),
+                GetSKUOrderItem(PromotionEngineTestContext.Products.C, 2)
+            };
+
+            var target = GetSingleSKUPromotion(PromotionEngineTestContext.Products.A.ID, 2, 80);
+
+            var result = target.ApplyPromotion(orderItems);
+            Assert.IsTrue(result.PromotionWasApplied);
+            Assert.AreEqual(-40, result.AdjustmentOrderItem.Amount);
+            Assert.AreEqual(PromotionEngineTestContext.Products.A, result.AppliedToSKUs.Single());
+        }
+
+
         #region helpers
 
         private static ISKUOrderItem GetSKUOrderItem(ISKU sku, int count)

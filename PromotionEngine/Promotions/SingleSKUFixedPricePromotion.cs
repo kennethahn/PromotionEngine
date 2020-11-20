@@ -28,7 +28,8 @@ namespace PromotionEngine
             if (skuOrderItem != null)
             {
                 var fixedPriceMultiplier = skuOrderItem.Count / _count;
-                var adjustmentAmount = skuOrderItem.Amount - fixedPriceMultiplier * _fixedPrice;
+                var fullPriceMultiplier = skuOrderItem.Count % _count;
+                var adjustmentAmount = skuOrderItem.Amount - (fixedPriceMultiplier * _fixedPrice + fullPriceMultiplier * skuOrderItem.SKU.UnitPrice);
                 var adjustmentOrderItem = new PromotionAdjustmentOrderItem(-adjustmentAmount);
                 return PromotionResult.Success(adjustmentOrderItem, new ISKU[] { skuOrderItem.SKU });
             }

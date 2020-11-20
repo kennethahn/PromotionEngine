@@ -20,7 +20,6 @@ namespace PromotionEngine.Test
             Assert.AreEqual(0, total);
         }
 
-
         [TestMethod]
         public void Test_CalculateTotal_WHEN_NoPromotionsApply_THEN_TotalIsUnaffected()
         {
@@ -36,6 +35,20 @@ namespace PromotionEngine.Test
             var result = target.CalculateTotal(orderItems, PromotionEngineTestContext.ActivePromotions);
             Assert.AreEqual(100, result);
         }
+
+        [TestMethod]
+        public void Test_CalculateTotal_WHEN_SingleSKUPromotionsApplyTo1Item_THEN_TotalIsAdjusted()
+        {
+            var orderItems = new IOrderItem[]
+            {
+                GetSKUOrderItem(PromotionEngineTestContext.Products.A, 5)
+            };
+
+            var target = new OrderTotalCalculatorTestBuilder().Build();
+            var result = target.CalculateTotal(orderItems, PromotionEngineTestContext.ActivePromotions);
+            Assert.AreEqual(230, result);
+        }
+
 
         [TestMethod]
         public void Test_CalculateTotal_WHEN_SingleSKUPromotionsApplyTo2Items_THEN_TotalIsAdjusted()

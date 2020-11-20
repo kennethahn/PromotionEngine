@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 
@@ -16,6 +17,16 @@ namespace PromotionEngine
             {
                 total += item.Amount;
             }
+
+            foreach (var promotion in activePromotions)
+            {
+                var promotionResult = promotion.ApplyPromotion(orderItems);
+                if(promotionResult.PromotionWasApplied)
+                {
+                    total += promotionResult.AdjustmentOrderItem.Amount;
+                }
+            }
+
             return total;
         }
     }
