@@ -21,7 +21,26 @@ namespace PromotionEngine
         }
         public PromotionResult ApplyPromotion(IEnumerable<IOrderItem> orderItems)
         {
-            return PromotionResult.Failure();
+            var result = PromotionResult.Failure();
+
+            var skuOrderItem = GetFirstApplicableOrderItem(orderItems);
+
+            if (skuOrderItem != null)
+            {
+                var fixedPriceMultiplier = skuOrderItem.Count / _count;
+                var adjustmentAmount = skuOrderItem.Amount - fixedPriceMultiplier * _fixedPrice;
+                var adjustmentOrderItem = new PromotionAdjustmentOrderItem(adjustmentAmount);
+                return PromotionResult.Success(adjustmentOrderItem, new ISKU[] { skuOrderItem.SKU });
+            }
+            return result;
+        }
+
+        private ISKUOrderItem GetFirstApplicableOrderItem(IEnumerable<IOrderItem> orderItems)
+        {
+            return orderItems.OfType<ISKUOrderItem>()
+                            .Where(x => x.SKU.ID == _skuId)
+                            .Where(x => x.Count >= _count)
+                            .FirstOrDefault();
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 namespace PromotionEngine.Test.Stubs
 {
 public class ISKUOrderItemStubBuilder : StubBuilder<ISKUOrderItem>
-    {
+{
         public ISKUOrderItemStubBuilder WithSKU(ISKU sku)
         {
             MyMock.SetupGet(x => x.SKU).Returns(sku);
@@ -21,10 +21,11 @@ public class ISKUOrderItemStubBuilder : StubBuilder<ISKUOrderItem>
             return this;
         }
 
-        public ISKUOrderItemStubBuilder WithAmount(double amount)
+        protected override void OnBuild()
         {
-            MyMock.SetupGet(x => x.Amount).Returns(amount);
-            return this;
+            base.OnBuild();
+            MyMock.SetupGet(x => x.Amount).Returns(MyMock.Object.Count * MyMock.Object.SKU.UnitPrice);
         }
+
     }
 }
