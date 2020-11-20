@@ -40,7 +40,7 @@ namespace PromotionEngine.Test
             };
 
             var target = new CombinedSKUFixedPricePromotionTestBuilder()
-                .WithFixedPrice(15)
+                .WithFixedPrice(30)
                 .WithSKUIdCombo(PromotionEngineTestContext.Products.C.ID, PromotionEngineTestContext.Products.D.ID)
                 .Build();
 
@@ -49,8 +49,8 @@ namespace PromotionEngine.Test
             Assert.IsNotNull(result.AdjustmentOrderItem);
             Assert.AreEqual(-5, result.AdjustmentOrderItem.Amount);
             Assert.AreEqual(2, result.AppliedToSKUs.Count);
-            Assert.IsTrue(result.AppliedToSKUs.Any(x => x == PromotionEngineTestContext.Products.A));
-            Assert.IsTrue(result.AppliedToSKUs.Any(x => x == PromotionEngineTestContext.Products.B));
+            Assert.IsTrue(result.AppliedToSKUs.Any(x => x == PromotionEngineTestContext.Products.C));
+            Assert.IsTrue(result.AppliedToSKUs.Any(x => x == PromotionEngineTestContext.Products.D));
         }
 
         #region helpers

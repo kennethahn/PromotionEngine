@@ -19,8 +19,21 @@ namespace PromotionEngine
         }
 
         public PromotionResult ApplyPromotion(IEnumerable<IOrderItem> orderItems)
-        {
-            return PromotionResult.Failure();
+        {  // assumption: max 1 order item per SKU
+            var result = PromotionResult.Failure();
+
+            var relevantOrderItems = orderItems.OfType<ISKUOrderItem>()
+                .Where(x => _skuIdCombination.Contains(x.SKU.ID))
+                .ToList();
+
+            if(relevantOrderItems.Count == _skuIdCombination.Count)
+            {
+                var combinedUnitPriceBeforeAdjustment = relevantOrderItems.Sum(x => x.SKU.UnitPrice);
+                var adjustment = combinedUnitPriceBeforeAdjustment - _fixedPrice;
+                var adjustmentItem = new PromotionAdjustmentOrderItem(-adjustment);
+                return PromotionResult.Success(adjustmentItem, relevantOrderItems.Select(x => x.SKU));
+            }
+            return result;
         }
     }
 }
