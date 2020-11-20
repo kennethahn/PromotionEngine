@@ -53,6 +53,7 @@ namespace PromotionEngine.Test
         [TestMethod]
         public void Test_CalculateTotal_WHEN_SingleSKUPromotionsApplyTo2Items_THEN_TotalIsAdjusted()
         {
+            // scenario B
             var orderItems = new IOrderItem[]
             {
                 GetSKUOrderItem(PromotionEngineTestContext.Products.A, 5),
@@ -63,6 +64,20 @@ namespace PromotionEngine.Test
             var target = new OrderTotalCalculatorTestBuilder().Build();
             var result = target.CalculateTotal(orderItems, PromotionEngineTestContext.ActivePromotions);
             Assert.AreEqual(370, result);
+        }
+
+        [TestMethod]
+        public void Test_CalculateTotal_WHEN_SKUComboPromotionsApply_THEN_TotalIsAdjusted()
+        {
+            var orderItems = new IOrderItem[]
+            {
+                GetSKUOrderItem(PromotionEngineTestContext.Products.C, 1),
+                GetSKUOrderItem(PromotionEngineTestContext.Products.D, 1)
+            };
+
+            var target = new OrderTotalCalculatorTestBuilder().Build();
+            var result = target.CalculateTotal(orderItems, PromotionEngineTestContext.ActivePromotions);
+            Assert.AreEqual(30, result);
         }
 
 
