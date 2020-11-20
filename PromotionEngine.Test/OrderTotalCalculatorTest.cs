@@ -37,6 +37,21 @@ namespace PromotionEngine.Test
             Assert.AreEqual(100, result);
         }
 
+        [TestMethod]
+        public void Test_CalculateTotal_WHEN_SingleSKUPromotionsApplyTo2Items_THEN_TotalIsAdjusted()
+        {
+            var orderItems = new IOrderItem[]
+            {
+                GetSKUOrderItem(TestContext.Products.A, 5),
+                GetSKUOrderItem(TestContext.Products.B, 5),
+                GetSKUOrderItem(TestContext.Products.C, 1)
+            };
+
+            var target = new OrderTotalCalculatorTestBuilder().Build();
+            var result = target.CalculateTotal(orderItems, TestContext.ActivePromotions);
+            Assert.AreEqual(370, result);
+        }
+
 
         #region helpers
         private ISKUOrderItem GetSKUOrderItem(ISKU sku, int count)
