@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Stubs\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PromotionEngine\PromotionEngine.csproj" />
     <ProjectReference Include="..\StoreLibrary.Intf\StoreLibrary.Intf.csproj" />
   </ItemGroup>

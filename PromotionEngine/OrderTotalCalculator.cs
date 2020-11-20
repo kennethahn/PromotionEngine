@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PromotionEngine
 {
@@ -9,7 +10,12 @@ namespace PromotionEngine
     {
         public double CalculateTotal(IEnumerable<IOrderItem> orderItems)
         {
-            return 213;
+            double total = 0;
+            foreach (var item in orderItems)
+            {
+                total += item.Amount;
+            }
+            return total;
         }
     }
 }
