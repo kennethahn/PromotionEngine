@@ -29,7 +29,7 @@ namespace PromotionEngine
             {
                 var fixedPriceMultiplier = skuOrderItem.Count / _count;
                 var adjustmentAmount = skuOrderItem.Amount - fixedPriceMultiplier * _fixedPrice;
-                var adjustmentOrderItem = new PromotionAdjustmentOrderItem(adjustmentAmount);
+                var adjustmentOrderItem = new PromotionAdjustmentOrderItem(-adjustmentAmount);
                 return PromotionResult.Success(adjustmentOrderItem, new ISKU[] { skuOrderItem.SKU });
             }
             return result;

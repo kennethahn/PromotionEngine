@@ -51,7 +51,7 @@ namespace PromotionEngine.Test
             var result = target.ApplyPromotion(orderItems);
             Assert.IsTrue(result.PromotionWasApplied);
             Assert.IsNotNull(result.AdjustmentOrderItem);
-            Assert.AreEqual(20, result.AdjustmentOrderItem.Amount);
+            Assert.AreEqual(-20, result.AdjustmentOrderItem.Amount);
             Assert.AreEqual(1, result.AppliedToSKUs.Count);
             Assert.AreEqual(PromotionEngineTestContext.Products.A, result.AppliedToSKUs.Single());
         }
