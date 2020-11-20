@@ -80,6 +80,23 @@ namespace PromotionEngine.Test
             Assert.AreEqual(30, result);
         }
 
+        [TestMethod]
+        public void Test_CalculateTotal_WHEN_SingleAndCombinationSKUPromotionsApply_THEN_TotalIsAdjusted()
+        {
+            //scenario C
+            var orderItems = new IOrderItem[]
+            {
+                GetSKUOrderItem(PromotionEngineTestContext.Products.A, 3),
+                GetSKUOrderItem(PromotionEngineTestContext.Products.B, 5),
+                GetSKUOrderItem(PromotionEngineTestContext.Products.C, 1),
+                GetSKUOrderItem(PromotionEngineTestContext.Products.D, 1)
+            };
+
+            var target = new OrderTotalCalculatorTestBuilder().Build();
+            var result = target.CalculateTotal(orderItems, PromotionEngineTestContext.ActivePromotions);
+            Assert.AreEqual(280, result);
+        }
+
 
         #region helpers
         private ISKUOrderItem GetSKUOrderItem(ISKU sku, int count)
