@@ -3,6 +3,7 @@ using PromotionEngine.Test.Stubs;
 using StoreLibrary.Intf;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace PromotionEngine.Test
@@ -15,7 +16,7 @@ namespace PromotionEngine.Test
         {
             var target = new OrderTotalCalculator();
             var items = Enumerable.Empty<IOrderItem>();
-            var total = target.CalculateTotal(items);
+            var total = target.CalculateTotal(items, TestContext.ActivePromotions);
             Assert.AreEqual(0, total);
         }
 
@@ -32,7 +33,7 @@ namespace PromotionEngine.Test
             };
 
             var target = new OrderTotalCalculatorTestBuilder().Build();
-            var result = target.CalculateTotal(orderItems);
+            var result = target.CalculateTotal(orderItems, TestContext.ActivePromotions);
             Assert.AreEqual(100, result);
         }
 
@@ -60,6 +61,11 @@ namespace PromotionEngine.Test
                 public static IReadOnlyList<ISKU> All { get; } = new List<ISKU>() { A, B, C, D };
 
             }
+
+            public static IReadOnlyList<IPromotion> ActivePromotions { get; } = new List<IPromotion>
+            {
+
+            };
         }
     }
 }
