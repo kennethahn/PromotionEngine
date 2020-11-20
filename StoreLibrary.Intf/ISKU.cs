@@ -8,5 +8,4 @@ namespace StoreLibrary.Intf
         string ID { get; }
         double UnitPrice { get; }
     }
-
 }

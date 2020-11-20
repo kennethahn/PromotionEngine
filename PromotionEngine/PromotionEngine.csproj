@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StoreLibrary.Intf\StoreLibrary.Intf.csproj" />
+  </ItemGroup>
+
 </Project>
